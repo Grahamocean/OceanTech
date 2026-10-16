@@ -2,32 +2,90 @@
 @import "tailwindcss";
 
 /* ========================================
-   OCEANTECH — DESIGN SYSTEM
+   OCEANTECH — TITANIUM SILVER DESIGN SYSTEM
 ======================================== */
 
 :root {
   font-family: "DM Sans", sans-serif;
-  color: #f3f4f5;
-  background: #0a0a0b;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  /* Permanent brand colors */
   --color-obsidian: #0a0a0b;
   --color-graphite: #24262a;
-  --color-surface: #141518;
-  --color-surface-raised: #1c1e22;
   --color-titanium: #c5cbd2;
   --color-porcelain: #f3f4f5;
+
+  /* Dark mode is the fallback before the theme initializes */
+  --color-background: #0a0a0b;
+  --color-header: #0a0a0b;
+  --color-surface: #141518;
+  --color-surface-raised: #1c1e22;
+  --color-text: #f3f4f5;
   --color-muted: #92969e;
   --color-border: #303238;
+  --color-hover-text: #ffffff;
+  --color-primary-bg: #f3f4f5;
+  --color-primary-text: #0a0a0b;
+  --color-field-placeholder: #686c74;
+  --color-scrollbar-track: #0a0a0b;
+  --color-scrollbar-thumb: #44474e;
+  --color-selection-text: #0a0a0b;
+  --color-accent-link: #c5cbd2;
 
   --font-display: "Space Grotesk", sans-serif;
   --font-body: "DM Sans", sans-serif;
 
   --container-width: 1440px;
   --page-gutter: clamp(1.25rem, 5vw, 5rem);
+
+  color: var(--color-text);
+  background: var(--color-background);
+  color-scheme: dark;
+}
+
+/* LIGHT THEME */
+:root[data-theme="light"] {
+  --color-background: #f3f4f5;
+  --color-header: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-raised: #e8eaed;
+  --color-text: #0a0a0b;
+  --color-muted: #656971;
+  --color-border: #d8dbdf;
+  --color-hover-text: #0a0a0b;
+  --color-primary-bg: #0a0a0b;
+  --color-primary-text: #f3f4f5;
+  --color-field-placeholder: #777c84;
+  --color-scrollbar-track: #e8eaed;
+  --color-scrollbar-thumb: #a4a9b0;
+  --color-selection-text: #0a0a0b;
+  --color-accent-link: #424850;
+
+  color-scheme: light;
+}
+
+/* DARK THEME */
+:root[data-theme="dark"] {
+  --color-background: #0a0a0b;
+  --color-header: #0a0a0b;
+  --color-surface: #141518;
+  --color-surface-raised: #1c1e22;
+  --color-text: #f3f4f5;
+  --color-muted: #92969e;
+  --color-border: #303238;
+  --color-hover-text: #ffffff;
+  --color-primary-bg: #f3f4f5;
+  --color-primary-text: #0a0a0b;
+  --color-field-placeholder: #686c74;
+  --color-scrollbar-track: #0a0a0b;
+  --color-scrollbar-thumb: #44474e;
+  --color-selection-text: #0a0a0b;
+  --color-accent-link: #c5cbd2;
+
+  color-scheme: dark;
 }
 
 * {
@@ -37,15 +95,18 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
-  background: var(--color-obsidian);
+  background: var(--color-background);
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: var(--color-obsidian);
-  color: var(--color-porcelain);
+  background: var(--color-background);
+  color: var(--color-text);
+  transition:
+    background-color 220ms ease,
+    color 220ms ease;
 }
 
 body,
@@ -116,7 +177,7 @@ h4 {
 }
 
 ::selection {
-  color: var(--color-obsidian);
+  color: var(--color-selection-text);
   background: var(--color-titanium);
 }
 
@@ -126,7 +187,7 @@ h4 {
 }
 
 .container-shell {
-  width: min(100% - (var(--page-gutter) * 2), var(--container-width));
+  width: min(calc(100% - var(--page-gutter) * 2), var(--container-width));
   margin-inline: auto;
 }
 
@@ -180,6 +241,9 @@ h4 {
 .surface-card {
   border: 1px solid var(--color-border);
   background: var(--color-surface);
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease;
 }
 
 .divider {
@@ -209,22 +273,101 @@ h4 {
 }
 
 .button-primary {
-  background: var(--color-porcelain);
-  color: var(--color-obsidian);
+  background: var(--color-primary-bg);
+  color: var(--color-primary-text);
 }
 
 .button-primary:hover {
   transform: translateY(-2px);
   background: var(--color-titanium);
+  color: var(--color-obsidian);
 }
 
 .button-secondary {
   border-color: var(--color-border);
   background: transparent;
-  color: var(--color-porcelain);
+  color: var(--color-text);
 }
 
 .button-secondary:hover {
+  border-color: var(--color-titanium);
+  background: var(--color-surface-raised);
+}
+
+/* Theme-aware layout elements */
+
+.theme-page {
+  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-text);
+  transition:
+    background-color 220ms ease,
+    color 220ms ease;
+}
+
+.theme-announcement {
+  border-color: var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-accent-link);
+}
+
+.theme-header {
+  border-color: var(--color-border);
+  background: var(--color-header);
+}
+
+.theme-mobile-menu {
+  border-color: var(--color-border);
+  background: var(--color-header);
+}
+
+.theme-border {
+  border-color: var(--color-border);
+}
+
+.theme-muted-text {
+  color: var(--color-muted);
+}
+
+.theme-link {
+  color: var(--color-muted);
+  transition: color 180ms ease;
+}
+
+.theme-link:hover,
+.theme-link:focus-visible {
+  color: var(--color-hover-text);
+}
+
+.theme-accent-link {
+  color: var(--color-accent-link);
+  transition: color 180ms ease;
+}
+
+.theme-accent-link:hover {
+  color: var(--color-hover-text);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.theme-toggle:hover {
+  transform: rotate(8deg);
   border-color: var(--color-titanium);
   background: var(--color-surface-raised);
 }
@@ -252,7 +395,7 @@ h4 {
   color: var(--color-titanium);
   background: linear-gradient(
     115deg,
-    #f3f4f5 5%,
+    #c5c5c5 5%,
     #92969e 42%,
     #e0e4e9 68%,
     #92969e 100%
@@ -278,13 +421,16 @@ h4 {
   border: 1px solid var(--color-border);
   border-radius: 0;
   background: var(--color-surface);
-  color: var(--color-porcelain);
+  color: var(--color-text);
   outline: none;
-  transition: border-color 200ms ease;
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease,
+    color 200ms ease;
 }
 
 .field-control::placeholder {
-  color: #686c74;
+  color: var(--color-field-placeholder);
 }
 
 .field-control:focus {
@@ -298,13 +444,13 @@ h4 {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-obsidian);
+  background: var(--color-scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  border: 2px solid var(--color-obsidian);
+  border: 2px solid var(--color-scrollbar-track);
   border-radius: 10px;
-  background: #44474e;
+  background: var(--color-scrollbar-thumb);
 }
 
 ::-webkit-scrollbar-thumb:hover {

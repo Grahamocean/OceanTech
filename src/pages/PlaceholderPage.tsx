@@ -63,7 +63,11 @@ export default function PlaceholderPage() {
           description:
             "The page you're looking for doesn't exist or may have moved.",
         }
-      : pageDetails[location.pathname];
+      : (pageDetails[location.pathname] ?? {
+          eyebrow: "OceanTech",
+          title: "Something new is coming.",
+          description: "Explore the OceanTech collection.",
+        });
 
   return (
     <section className="container-shell flex min-h-[65vh] flex-col justify-center py-20 sm:py-28">
